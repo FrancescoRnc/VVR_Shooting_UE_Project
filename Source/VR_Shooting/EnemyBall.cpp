@@ -11,6 +11,11 @@ AEnemyBall::AEnemyBall()
 
 	ScoreValue = 100;
 	CurHealthValue = MaxHealthValue;
+
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	Material = UMaterialInstanceDynamic::Create(MatInterface, this, TEXT("Material"));
+	MeshComponent->SetStaticMesh(Mesh);
+	MeshComponent->SetMaterial(0, Material);
 }
 
 // Called when the game starts or when spawned

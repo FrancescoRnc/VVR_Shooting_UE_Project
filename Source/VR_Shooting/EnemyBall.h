@@ -6,6 +6,9 @@
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "Templates/SharedPointer.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Components/StaticMeshComponent.h"
 #include "EnemyBall.generated.h"
 
 class AEnemySpawner;
@@ -19,14 +22,6 @@ public:
 	// Sets default values for this actor's properties
 	AEnemyBall();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MaxHealthValue;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CurHealthValue;
-
-	//UPROPERTY()
-	//TWeakPtr<> Owner
-
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -36,8 +31,24 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//----------------------------------------//
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* MeshComponent;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMesh* Mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstanceDynamic* Material;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInterface* MatInterface;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxHealthValue;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float CurHealthValue;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 ScoreValue;
+
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	//TWeakPtr<> Owner;
 
 	UFUNCTION(BlueprintCallable)
 	void DoAction();
