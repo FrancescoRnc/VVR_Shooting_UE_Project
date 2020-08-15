@@ -5,6 +5,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "EnemySpawner.h"
+//#include "EnemyContainer.h"
+#include "EnemyManager.h"
 #include "EnemyWaveHandler.generated.h"
 
 UCLASS()
@@ -37,7 +39,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintCallable)
-	void MakeWave(const FWaveDispositionInfo info);
+	void MakeWave(const FWaveDispositionInfo2 info);
 
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void StartWaving();

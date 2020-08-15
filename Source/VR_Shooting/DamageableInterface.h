@@ -20,15 +20,19 @@ class VR_SHOOTING_API IDamageableInterface
 {
 	GENERATED_BODY()
 
-	// Add interface functions to this class. This is the class that will be inherited to implement this interface.
+	// Interface used by objects that simulates damage behaviour
+	// Used only by objects that gain damage from other objects
 	public:
 
+	// Function that decrease health points ecc.
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	bool GetDamage(float amount);
 
+	// Called when the object has 0 or less health points left
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void Die();
 
+	// Function used to query the current health points
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	float GetHealthValue();
 };

@@ -11,6 +11,12 @@
  * 
  */
 
+// Here are contained InputCntainerDispatchers, one for each button,
+// that execute the last function from their stack, if enabled
+
+// This, with UInputContainerDispatcher files, could be used for every project.
+// You just need to make the properly changes to the enum, and the quantity of containers
+
 UCLASS()
 class VR_SHOOTING_API AMultiInputPlayerController : public APlayerController
 {
@@ -27,14 +33,18 @@ class VR_SHOOTING_API AMultiInputPlayerController : public APlayerController
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UInputContainerDispatcher*> InputMap;
 
+	// Used to exclude containers, by given button types, to be executed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSet<EInputButtonType> ButtonExclusionMap;
 
 // Functions
+
+	// Initialization of the containers
 	UFUNCTION(BlueprintCallable)
 	void MakeMap();
 
 	// Push / Pop
+	// Same as the container base, but given a button type
 	UFUNCTION(BlueprintCallable)
 	void PushNewFunction(const EInputButtonType type, const FFuncParam binder);
 
@@ -56,6 +66,7 @@ class VR_SHOOTING_API AMultiInputPlayerController : public APlayerController
 	void Execute(const EInputButtonType type);
 
 	// Exclusion
+	// Function used to manage the button exclusion system
 	UFUNCTION(BlueprintCallable)
 	void SetExclusion(const TSet< EInputButtonType> map);
 

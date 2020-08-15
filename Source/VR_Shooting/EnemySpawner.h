@@ -4,16 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "EnemyBall.h"
+//#include "EnemyBall.h"
 #include "Engine/World.h"
-#include "Containers/Queue.h"
 #include "Containers/CircularQueue.h"
+#include "Containers/Queue.h"
 #include "Runtime/Engine/Classes/Engine/Engine.h"
 #include "Engine.h"
+#include "EnemyManager.h"
 #include "EnemySpawner.generated.h"
 
 USTRUCT(BlueprintType)
-struct VR_SHOOTING_API FWaveDispositionInfo
+struct VR_SHOOTING_API FWaveDispositionInfo2
 {
 	GENERATED_USTRUCT_BODY()
 	
@@ -41,7 +42,7 @@ public:
 	AEnemySpawner();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Edit")
-	TSubclassOf<AActor> BallsClass;
+	TSubclassOf<AEnemyBall> BallsClass;
 
 	TCircularQueue<AEnemyBall*> BallsQueue{10};
 

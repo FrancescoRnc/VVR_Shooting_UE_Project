@@ -26,7 +26,7 @@ void AEnemyWaveHandler::Tick(float DeltaTime)
 }
 
 //
-void AEnemyWaveHandler::MakeWave(const FWaveDispositionInfo info)
+void AEnemyWaveHandler::MakeWave(const FWaveDispositionInfo2 info)
 {
 	CurrentWaveCount = info.Length;
 	float angleDelta = info.MaxDegreeAngle / (info.Length - 1);

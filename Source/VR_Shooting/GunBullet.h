@@ -13,35 +13,29 @@ class VR_SHOOTING_API AGunBullet : public AActor, public IBulletInterface
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AGunBullet();
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float DamageValue;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float Speed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
 	float MaxCustomLifeSpan;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	float CustomLifeSpan;
-
-	//UPROPERTY(BlueprintReadOnly)
 	
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
-
-	// Functions
+	
+	// This function handles the actor's opacity, tick and collision enability
 	UFUNCTION(BlueprintImplementableEvent, BlueprintCallable)
 	void SetNewAvailability(const bool value);
 
-	// BulletInterface
+	// BulletInterface functions
 	virtual void SpawnOnShoot_Implementation(FVector const &startLoc, FRotator const &startRot);
 
 	virtual void Regenerate_Implementation();

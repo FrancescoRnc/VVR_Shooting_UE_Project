@@ -6,12 +6,22 @@
 #include "GameFramework/Actor.h"
 #include "Engine/World.h"
 #include "Templates/SharedPointer.h"
-#include "Materials/Material.h"
+//#include "Materials/Material.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Components/StaticMeshComponent.h"
 #include "EnemyBall.generated.h"
 
-class AEnemySpawner;
+class UEnemyContainer;
+
+UENUM(Blueprintable)
+enum class EEnemyType : uint8
+{
+	Base = 0 UMETA(DisplayName = "Base"),
+	Bad = 1 UMETA(DisplayName = "Bad"),
+	Quick = 2 UMETA(DisplayName = "Quick"),
+	Boss = 3 UMETA(DisplayName = "Boss"),
+	TOTAL = 4 UMETA(DisplayName = "None - Do not Use!")
+};
 
 UCLASS()
 class VR_SHOOTING_API AEnemyBall : public AActor
@@ -31,24 +41,39 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	//----------------------------------------//
+	
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	UStaticMeshComponent* MeshComponent;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	// Mesh assigned from blueprint defaults
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Edit")
 	UStaticMesh* Mesh;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	UPROPERTY(BlueprintReadWrite)
 	UMaterialInstanceDynamic* Material;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	// Used to determine the right material, assigned from blueprint defaults
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Edit")
 	UMaterialInterface* MatInterface;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	// Enemy type, assigned from blueprint defaults
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Edit")
+	EEnemyType Type;
+
+	// Max amount of health points, assigned from blueprint defaults
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Edit")
 	float MaxHealthValue;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(BlueprintReadWrite)
 	float CurHealthValue;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+
+	// Local score value for the Score System (future use), assigned from blueprint defaults
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Edit")
 	int32 ScoreValue;
 
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	//TWeakPtr<> Owner;
+	// Reference to the native container
+	UPROPERTY(BlueprintReadOnly)
+	UEnemyContainer* ManagerOwner;
+	
 
 	UFUNCTION(BlueprintCallable)
 	void DoAction();
@@ -59,6 +84,7 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void Respawn();
 	
+	// Used to set actor location
 	UFUNCTION(BlueprintCallable)
 	void Locate(const FVector& vec);
 

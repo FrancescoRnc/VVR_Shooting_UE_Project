@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
+#include "EnemyBall.h"
 #include "InputContainerDispatcher.generated.h"
 
 /**
@@ -13,6 +14,7 @@
 UENUM(Blueprintable)
 enum class EInputButtonType : uint8
 {
+	// Here you can add buttons you use for gameplay mechanics
 	TriggerRight = 0 UMETA(DisplayName = "Trigger Right"),
 	TriggerLeft = 1 UMETA(DisplayName = "Trigger Left"),
 	ShoulderRight = 2 UMETA(DisplayName = "Shoulder Right"),
@@ -21,6 +23,10 @@ enum class EInputButtonType : uint8
 };
 
 DECLARE_DYNAMIC_DELEGATE(FFuncParam);
+
+//This UObject contains a stack of functions/delegates,
+// but ONLY the LAST function (with push) will be called.
+// There's even a custom behaviour for dis/enable the execution of the current function
 
 UCLASS(Blueprintable)
 class VR_SHOOTING_API UInputContainerDispatcher : public UObject
@@ -41,6 +47,7 @@ class VR_SHOOTING_API UInputContainerDispatcher : public UObject
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta=(ExposeOnSpawn="true"))
 	EInputButtonType Type;
 
+	// Stack that contains functions/delegates to be called
 	UPROPERTY(BlueprintReadOnly)
 	TArray<FFuncParam> FunctionStack;
 
@@ -52,6 +59,7 @@ class VR_SHOOTING_API UInputContainerDispatcher : public UObject
 	UFUNCTION(BlueprintCallable)
 	FFuncParam PopFunction();
 
+	// This pushes an empty function to the stack
 	UFUNCTION(BlueprintCallable)
 	void PushEmptyFunction();
 
