@@ -17,12 +17,19 @@ void AMultiInputPlayerController::MakeMap()
 		InputMap.Add(NewObject<UInputContainerDispatcher>());
 		InputMap[i]->PushFunction({});
 	}
+		
+	InputPressMap.Add(EInputButtonType::TriggerRight, NewObject<UInputContainerDispatcher>());
+	InputPressMap.Add(EInputButtonType::TriggerLeft, NewObject<UInputContainerDispatcher>());
+	InputPressMap.Add(EInputButtonType::ShoulderRight, NewObject<UInputContainerDispatcher>());
+	InputPressMap.Add(EInputButtonType::ShoulderLeft, NewObject<UInputContainerDispatcher>());
+
 }
 
 // Push / Pop
 void AMultiInputPlayerController::PushNewFunction(const EInputButtonType type, const FFuncParam binder)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	container->PushFunction(binder);
 	container->BindLastFunction();
 }
@@ -30,6 +37,7 @@ void AMultiInputPlayerController::PushNewFunction(const EInputButtonType type, c
 void AMultiInputPlayerController::PushNullFunction(const EInputButtonType type)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	container->PushEmptyFunction();
 	container->UnbindFunction();
 }
@@ -37,6 +45,7 @@ void AMultiInputPlayerController::PushNullFunction(const EInputButtonType type)
 FFuncParam AMultiInputPlayerController::PopLastFunction(const EInputButtonType type)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	auto func = container->PopFunction();
 	container->BindLastFunction();
 	return func;
@@ -46,12 +55,14 @@ FFuncParam AMultiInputPlayerController::PopLastFunction(const EInputButtonType t
 void AMultiInputPlayerController::BindLastFunction(const EInputButtonType type)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	container->BindLastFunction();	
 }
 
 void AMultiInputPlayerController::UnbindFunction(const EInputButtonType type)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	container->UnbindFunction();
 }
 
@@ -59,6 +70,7 @@ void AMultiInputPlayerController::UnbindFunction(const EInputButtonType type)
 void AMultiInputPlayerController::Execute(const EInputButtonType type)
 {
 	auto container = InputMap[(uint8)type];
+	//auto container = InputPressMap[type];
 	container->Execute();
 }
 
@@ -94,4 +106,13 @@ void AMultiInputPlayerController::UpdateMapAvaliability()
 			InputMap[i]->DisableBinding();
 		else InputMap[i]->AbleBinding();
 	}
+
+	//TArray<EInputButtonType> keys;
+	//InputPressMap.GetKeys(keys);
+	//for (auto item : keys)
+	//{
+	//	if (ButtonExclusionMap.Contains(item))
+	//		InputPressMap[item]->DisableBinding();
+	//	else InputPressMap[item]->AbleBinding();
+	//}
 }

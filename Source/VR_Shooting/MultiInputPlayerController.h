@@ -33,6 +33,9 @@ class VR_SHOOTING_API AMultiInputPlayerController : public APlayerController
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<UInputContainerDispatcher*> InputMap;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TMap<EInputButtonType, UInputContainerDispatcher*> InputPressMap;
+
 	// Used to exclude containers, by given button types, to be executed
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSet<EInputButtonType> ButtonExclusionMap;

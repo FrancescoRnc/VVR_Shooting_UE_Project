@@ -23,6 +23,7 @@ enum class EInputButtonType : uint8
 };
 
 DECLARE_DYNAMIC_DELEGATE(FFuncParam);
+DECLARE_DYNAMIC_DELEGATE_OneParam(FAxisAction, float, AxisValue);
 
 //This UObject contains a stack of functions/delegates,
 // but ONLY the LAST function (with push) will be called.
@@ -37,6 +38,9 @@ class VR_SHOOTING_API UInputContainerDispatcher : public UObject
 
 	UPROPERTY()
 	FFuncParam inputPress;
+
+	//UPROPERTY()
+	//FAxisAction axisPress;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bAllowBind = true;
