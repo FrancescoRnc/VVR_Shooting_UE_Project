@@ -29,3 +29,8 @@ void UEnemyContainer::DespawnLast(AEnemyBall* const &enemy)
 	enemy->Despawn();
 	EnemyQueue.Enqueue(enemy);
 }
+
+int32 UEnemyContainer::GetQueueLength() const
+{
+	return EnemyQueue.Count();
+}

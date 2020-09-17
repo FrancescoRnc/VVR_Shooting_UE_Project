@@ -36,4 +36,7 @@ class VR_SHOOTING_API UEnemyContainer : public UObject
 	// handles the despawn of the given enemy, and enqueues it
 	UFUNCTION(BlueprintCallable)
 	void DespawnLast(AEnemyBall* const &enemy);
+
+	UFUNCTION(BlueprintCallable)
+	int32 GetQueueLength() const;
 };
